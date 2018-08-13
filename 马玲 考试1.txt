@@ -1,0 +1,327 @@
+前端:
+1. 
+	
+两类标签： 
+   字体标签    写样式类型的
+    排版标签    写页面结构的
+    
+ 
+2. 四种 1. 给父盒子设置高度
+        2.clear:both
+        3.伪元素清除法
+        4.overflow：hidden
+
+3.display:none  是使盒子不显示在页面
+ visibility：hidden 隐藏可见性，就是显示了，但看不到
+4.    
+     相对定位  不脱离标准流  与普通标准流下的盒子没有任何区别
+       绝对定位 : 相当于把盒子飘在最上面  脱离标准流
+       固定定位  固定当前的元素不会随着页面滚动而滚动
+ 
+5.  number  string   boolean   null     undefined    
+    
+    
+  
+
+6. 
+
+7
+
+8 document.getElementById("box1");
+  document.getElementsByTagName("div1")
+  document.getElementsByClassName("aaa");
+
+9. 基本选择器   层级选择器  基本过滤器 属性选择器   筛选选择器 
+
+10 $.ajax({
+    url: 'http://localhost:8000/course',
+    type: 'get',
+    dataType: 'json',
+    success: function(data){
+    console.log(data.name);
+$('body').html('<h1>${data.name}</h1>')
+},
+error: function(err)
+{
+    console.log(err)
+}
+}
+)
+
+
+
+$.ajax({
+    url: 'http://localhost:8000/create',
+    type: 'post',
+    data: {
+        name: 'alex'
+    },
+    success: function(data){
+    console.log(data)
+},
+    error: function(err)
+{
+    console.log(err)
+}
+}
+)
+
+
+
+
+
+数据库:
+1.视图  
+2.视图是虚拟表或逻辑表， 具有连接的SQL SELECT查询语句。
+因为数据库视图与数据库表类似，它由行和列组成， 可以根据数据库表查询数据  其内容由查询定义
+视图并不在数据库中以存储的数据值集形式存在，行和列数据来自由定义视图的查询所引用的表，
+并且在引用视图时动态生成   视图是由其定义结果组成的表
+  
+
+
+
+3.  存储过程：是存储在数据库目录中的一些声明性SQL语句
+   触发器：使用触发器可以定制用户对表进行增、删、改操作时前后的行为。
+
+4.
+5.   char_length 可以计算unicode字符，按字符统计
+	length 用来计算普通字符的长度，按字节统计
+
+6.  char 是固定长度
+    varchar 是不固定的长度可以定义
+
+7.
+ 1) select score.student_id,sum(score.num),count(score.student_id),student.sname
+    from score left join student on score.student_id = student.sid   group by score.student_id
+   
+
+2)   select count(tid) from teacher where tname like '李%'
+     select count(1) from (select tid from teacher where tname like '李%') as A
+  
+3)select student_id,avg(num) from score group by student_id having avg(num) > 60
+
+
+4)select sid,sname from student where sid in (
+        select distinct student_id from score where num < 60
+    )
+
+5)delete from score where course_id in (
+        select cid from course left join teacher on course.teacher_id = teacher.tid where teacher.name = '叶平'
+    )
+
+
+6)select course_id, max(num) as max_num, min(num) as min_num from score group by course_id;
+
+7) select course_id, count(1) from score group by course_id;
+
+8)select student.sid, student.sname, count(1) from score
+ 
+    left join student on score.student_id  = student.sid
+ 
+     group by course_id having count(1) = 1
+
+
+9)
+
+10)  select student_id,count(1) from score where num < 60 group by student_id having count(1) > 2
+
+
+
+
+python
+1.
+[10]   [10, 'a']   [123]    [10, 'a']
+list1 是直接添加到list1中返回的,
+list1 是 和list3 一个内存地址 被添加了a 10 
+list2 是开辟的新的内存
+
+
+2. 
+第一个print：   1 1 1
+Parent类是父类，Child1和Child2是子类，因为子类中没有属性，所以要继承父类所以输出 1 1 1
+	
+第二个print：   1 2 1
+因为Child2子类中没有属性，所以继承父类，Child1.x = 2，所以输出结果是 1 2 1
+第三个print  3 2 3
+Child2子类中没有属性，所以继承父类，Child1.x = 2，而且Parent.x = 3所以输出结果是 3 2 3 
+
+
+
+3.
+
+
+4. [0,1,0,1,0,1,0,1,0,1]
+
+5. 0 1 2 3 4 4
+
+6.
+ 第一个为内存地址, 第二个为内存地址中的第一个元素, 第三个为9
+
+
+7.print([i**2 for i in range(1,11)])
+
+
+
+ 
+8. [1, 2, 3,4]    直接打印v1的值  值为列表1234
+   [1, 2, 3]    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Django
+1.
+所有的django命令
+安装:
+	pip install django==1.11.14          下载
+	pip install -i源 django==1.11.14 
+创建项目:         
+	django-admin startproject 项目名称     创建项目
+启动项目:
+	python manage.py runserver 80  0.0.0.0:80    启动  
+	python manage.py runserver 80  127.0.0.1:80
+	python manage.py runserver 0.0.0.0:80 0.0.0.0:80
+创建app:
+	python manage.py startapp app01           创建app应用
+数据库迁移:
+	python manage.py makemigrations       保存models修改记录
+	python manage.py migrate              操作数据表	
+
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+os.path.join(BASE_DIR,'static')]     配置静态文件
+ 
+
+
+
+2. 
+配置静态文件
+STATICFILES_DIRS = [
+os.path.join(BASE_DIR,'static')]
+注释csrf中间件
+
+
+
+
+
+
+
+3. 类   ——》	数据表
+  对象  ——》	数据行
+  属性	——》  字段
+ 
+4. 
+1). 创建mysql数据库
+2). settings.py中配置
+ DATABASES = {
+	'default': {
+	'ENGINE': 'django.db.backends.mysql',
+	'NAME': '数据库名',
+	'HOST': '127.0.0.1',
+	'PORT': 3306,
+	'USER': 'root',
+	'PASSWORD': '', }}
+						
+3). 告诉django使用pymysql来连接数据库：
+在与项目同名的文件夹下的__init__.py文件中引入 pymysql
+import pymysql
+pymysql.install_as_MySQLdb()
+
+4). 在app01/models.py写类 
+	class Publisher(models.Model):
+	id = models.AutoField(primary_key=True)
+	name = models.CharField(max_length=32,null=False,unique=True)
+			
+5). 执行数据库迁移两条命令
+python manage.py makemigrations     
+python manage.py migrate   
+
+
+
+5.
+1).class_list=models.Classes.objects.all() 
+  for class in class_list:
+      print(class.name)
+ 
+2)student_obj=models.Student.objects.all()
+  for student in student_obj:
+     print(student.name)
+
+3)
+
+
+4)models.Student.objects.create(id=1)
+
+5)models.Student.objects.create(name='全栈12期')
+
+
+
+6)models.Student.objects.all(id=2)
+
+7)models.Student.objects.all(name='全栈12期')
+
+
+
+6.HttpRestonse('字符串')     显示字符串
+  render(request,'HTML文件名',{"k1":v1})  显示html文件页面 传入值给页面中渲染
+  
+redirect("/book_list/")  跳转网页  返回一个响应头 book_list
+
+
+
+
+7.
+request.method   请求方法  GET POST
+request.POST     post请求提交的数据    字典
+request.GET      GET请求URL上带参数
+
+
+
+
+8.{{ 变量}} 
+  {% for k in klist %}
+    操作
+  {% endfor%}
+
+
+  {% for k in klist %}
+   {% if xx%}
+     操作
+   {% endif%}
+  {% endfor%}
+
+{% for k in klist %}
+   {% if xx%}
+     操作
+    {% else %}
+      操作
+   {% endif%}
+  {% endfor%}
+
+
+
+
+
+
+
+
+
+
+
+
+
